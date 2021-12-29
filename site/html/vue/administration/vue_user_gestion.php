@@ -53,6 +53,7 @@ ob_start();
                             <form class='form' method='POST' action="<?php echo $dest ?>"
                                   enctype="multipart/form-data">
                                 <?php require 'vue_select_role.php'; ?>
+                                <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
                                 <button type="submit" class="btn btn-primary" name="addRole">Envoyer</button>
                             </form>
                         </td>
