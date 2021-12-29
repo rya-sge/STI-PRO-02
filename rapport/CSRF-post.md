@@ -68,7 +68,7 @@ Cette exemple illustre une façon possible pour convaincre l'utilisateur de cliq
 
 Il envoie le lien url de son site web et fait en sorte que l'utilisateur clique dessus. Par exemple, il a réussi à obtenir le compte email, facebook d'une connaissance de la victime. Il envoi l'email suivant :
 
-![csrf-email](C:\Users\super\switchdrive2\HEIG\s5\sti\pentesting-sti\csrf\csrf-email.PNG)
+![csrf-email](./assets/csrf/csrf-email.PNG)
 
 L'utilisateur ne se méfie pas et clique sur lien url qui l'envoie sur le site malveillant contenant la page html (formulaire + script javasript)
 
@@ -80,9 +80,9 @@ Une fois sur la page, le formulaire sera directement envoyé et l'action exécut
 
 Le rôle a bien été modifié !
 
-![csrf-result](C:\Users\super\switchdrive2\HEIG\s5\sti\pentesting-sti\csrf\csrf-result.PNG)
+![csrf-result](./assets/csrf/csrf-result.PNG)
 
-Lorsqu'on se connecte en tant qu'user, on constate bien que la partie administration est dorénavant accessible![csrf-result2](C:\Users\super\switchdrive2\HEIG\s5\sti\pentesting-sti\csrf\csrf-result2.PNG)
+Lorsqu'on se connecte en tant qu'user, on constate bien que la partie administration est dorénavant accessible![csrf-result2](./assets/csrf/csrf-result2.PNG)
 
 
 

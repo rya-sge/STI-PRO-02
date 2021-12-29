@@ -40,23 +40,23 @@ if(isset($_GET[$COOKIE_NAME])){
 
 - Envoyer le message à notre cible, ici l'utilisateur `admin`
 
-![xss-message](C:\Users\super\switchdrive2\HEIG\s5\sti\pentesting-sti\xss-cookie\xss-message.PNG)
+![xss-message](./assets/xss-cookie/xss-message.PNG)
 
 L'utilisateur `admin`losqu'il clique sur sa boite de réception va déclencher l' effet du script malveillant, il sera redirigé vers le site malveillant.
 
 L'attaquant n'a plus qu'a afficher son fichier log.txt pour obtenir le cookie de session
 
-![log-cookie](C:\Users\super\switchdrive2\HEIG\s5\sti\pentesting-sti\xss-cookie\log-cookie.PNG)
+![log-cookie](./assets/xss-cookie/log-cookie.PNG)
 
 ## Vérification 
 
 On peut ensuite remplacer notre cookie de session par la valeur de celui récupéré dans les logs.
 
-![change-cookie](C:\Users\super\switchdrive2\HEIG\s5\sti\pentesting-sti\xss-cookie\change-cookie.PNG)
+![change-cookie](./assets/xss-cookie/change-cookie.PNG)
 
 En constate en rafraichissant la page que l'onglet Administration est apparue
 
-![result](C:\Users\super\switchdrive2\HEIG\s5\sti\pentesting-sti\xss-cookie\result.PNG)
+![result](./assets/xss-cookie/result.PNG)
 
 ## Sources 
 
