@@ -14,7 +14,7 @@ require "modele/modele_administration.php";
 
 require "library/permission.php";
 require "library/erreur.php";
-
+require "library/security.php";
 define("ROOT_PROFIL", "vue/profil/");
 define("ROOT_MAILBOX", "vue/mailbox");
 define("NON_VALIDE", "En attente de validation");
