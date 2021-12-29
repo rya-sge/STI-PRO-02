@@ -23,6 +23,17 @@ function login()
                     $_SESSION['login'] = $infoUser['login'];
                     $_SESSION['email'] = $infoUser['email'];
                     $_SESSION['idRole'] = $infoUser['idRole'];
+                    /*
+                     * https://gist.github.com/subhendugiri/69db7e8e276bfd348385b24aa4f2d7a5
+                     */
+                    if (empty($_SESSION['token'])) {
+                        if (function_exists('mcrypt_create_iv')) {
+                            $_SESSION['token'] = bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));
+                        } else {
+                            $_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(32));
+                        }
+                    }
+
                     $_SESSION['error'] = "";
                     @header("location: index.php?action=vue_accueil");
                     exit();

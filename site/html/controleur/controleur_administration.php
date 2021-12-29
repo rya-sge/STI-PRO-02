@@ -19,6 +19,7 @@ function roleGestion()
 function updUserRole(){
     if (isset($_GET['qIdUser']) && isset($_POST['role'])) {
         try {
+            verifCSRF();
             updateRoleById($_GET['qIdUser'], $_POST['role']);
         } catch (Exception $e) {
             $_SESSION['erreur'] = $e->getMessage();
