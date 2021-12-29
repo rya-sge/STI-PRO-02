@@ -1,0 +1,133 @@
+/* 
+custom.css
+// Date de création : 09/01/2021
+// Fonction : CSS rajouté en plus de celui de bootstrap 
+// __________________________________
+*/
+
+/* pour le menu du site web */
+.alone
+{
+    display: block; /* pour un lien occupant toute la largeur disponible*/
+}
+/* CSS pour le texte qui informe l'utilisateur quand une modification est effectuée ou qu'une donnée a été ajoutée dans la BDD */
+.textModif
+{
+  color:red;
+}
+/* Début source bouton bootstrap 
+Le code CSS des boutons bootstrap est repris de snippet bootstrap. Le code du btn-round-lg  a été modifié pour répondre au besoin du site.
+source : 
+1. http://bootsnipp.com/snippets/featured/rounded-buttons 
+2. https://bootstrapbay.com/blog/bootstrap-button-styles/ (uniquement pour btn-roug-lg)
+ */
+.btn-round-lg{
+height:200px;
+width:200px;
+border: 2px solid #c7c7c7; 
+border-radius: 50%;
+-moz-border-radius:50%;
+ -webkit-border-radius:50%;
+}
+.btn-round{
+border-radius: 17px;
+}
+.btn-round-sm{
+border-radius: 15px;
+}
+.btn-round-xs{
+border-radius: 11px;
+padding-left: 10px;
+padding-right: 10px;
+}
+/* FIn source bouton 
+Début source :
+Le code ci-dessous est repris du module 151 de Benzonana Pascal
+ */ 
+
+ body {padding-top:0px}
+ .divPanel {
+	padding: 40px;;;;
+}
+.divPanel2 {}
+{
+	padding-top: 0px;
+	float: none;
+	margin: 0 auto;
+}
+@media (min-width: 767px)
+{
+	.contenu
+	{
+	margin-left: 300px;
+	}
+}
+.cadre
+{
+	/*width : 200px;*/
+	border: 4px solid #c7c7c7;
+	border-radius:30px;
+	padding:5%;
+	margin:5%;
+
+}
+.cadre > p
+{
+	font-size:24px;
+	text-align:center;
+}
+#cadre_carte {
+  /* display : none;    /* A BANNIR dans ce cas */
+  height : 0;
+  overflow : hidden;
+  position : relative;  /* pour IE jusqu'à au moins V7 */  
+}
+#div_carte{
+  height : 600px;       /* IMPERATIF */
+  width : 600px;
+  margin : auto;  
+}
+#divBoxed 
+{
+	margin-top: 51px; ;;;
+}
+#divBoxed {position:relative}
+.transparent-bg {-moz-box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px; -webkit-box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px;   background-color: rgb(255, 255, 255); border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;;}
+.nav .dropdown-toggle .caret {border-top-color:rgb(0, 0, 0);border-bottom-color:rgb(0, 0, 0);}
+
+.nav .dropdown-toggle:hover .caret {border-top-color:rgb(0, 0, 0);border-bottom-color:rgb(0, 0, 0);}
+
+.navbar .dropdown-menu, .dropdown-menu {background-color:rgb(255, 255, 255);border-radius:0px;}
+
+.navbar .dropdown-menu li > a, .dropdown-menu li > a, .navbar .nav-pills .open .dropdown-toggle {color:rgb(0, 0, 0)}
+
+.navbar .dropdown-menu li > a:hover, .navbar .dropdown-menu .active > a, .navbar .dropdown-menu .active > a:hover, .dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover, .dropdown-menu li > a:focus, .dropdown-submenu:hover > a, .navbar .nav-pills .open a.dropdown-toggle:hover {filter:none; color:rgb(255, 255, 255);background-color:/*#e05f03*/;background-image:none}
+
+.navbar .nav-pills > li > a {margin-left:2px;margin-right:2px;padding:10px 30px;border-radius:5px;color:rgb(41, 41, 41);background-color:rgb(240, 240, 240)}
+
+.navbar .nav-pills > li > a:hover, .navbar .nav li.dropdown.open.active > .dropdown-toggle {color:rgb(255, 255, 255);background-color:#e05f03}
+
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle {background:none}
+
+.navbar .nav-pills > .active > a, .navbar .nav-pills > .active > a:hover, .navbar .nav-pills li.dropdown.open > .dropdown-toggle, .navbar .nav-pills li.dropdown.active > .dropdown-toggle {color:rgb(255, 255, 255);background-color:rgb(102, 124, 148);}
+
+.navbar .ddmenu {margin-top:67px;margin-bottom:0px}
+
+.navbar .nav-pills li.dropdown > .dropdown-toggle .caret, .navbar .nav-pills li.dropdown.open > .dropdown-toggle .caret, .navbar .nav-pills li.dropdown.active > .dropdown-toggle .caret, .navbar .nav-pills li.dropdown.open.active > .dropdown-toggle .caret {border-top-color:rgb(41, 41, 41);border-bottom-color:rgb(41, 41, 41);}
+
+.navbar .nav-pills li.dropdown > .dropdown-toggle:hover .caret {border-top-color:rgb(255, 255, 255);border-bottom-color:rgb(255, 255, 255);}
+
+.navbar .nav-pills li.dropdown.active > .dropdown-toggle .caret {border-top-color:rgb(255, 255, 255);border-bottom-color:rgb(255, 255, 255);}
+
+.dropdown-menu .sub-menu {left:100%;position:absolute;top:0;visibility:hidden;margin-top:-1px;}
+
+.dropdown-menu li:hover .sub-menu {visibility:visible;}
+
+.ddmenu.nav-pills li a {font-family: 'Pontano Sans'; font-size: 15px; line-height: 17px;}
+
+.ddmenu .dropdown-menu li a {font-family: 'Pontano Sans'; line-height: 26px; font-size: 15px;}
+.dropdown-menu .sub-menu {left:100%;position:absolute;top:0;visibility:hidden;margin-top:-1px;}
+.dropdown-menu li:hover .sub-menu {visibility:visible;}
+.navbar .btn-navbar-highlight {display:none;width:100%}
+
+/* FIn de la source*/
