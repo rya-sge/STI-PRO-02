@@ -1,11 +1,13 @@
 <?php
 $titre = 'HashMail - Liste des utilisateurs';
 
-// vue_user_gestion.php
-// Date de création : 07/10/2021
-// Fonction : vue pour gérer les rôles des utilisateurs sur le site
-// __________________________________________
-
+/*
+vue_user_gestion.php
+Date de création : 07/10/2021
+Fonction : vue pour gérer les rôles des utilisateurs sur le site
+Security Measure : Add a CSRF token in the form
+__________________________________________
+*/
 // Tampon de flux stocké en mémoire
 ob_start();
 

@@ -129,14 +129,21 @@ function checkLogin($postArray)
     $passwdPost = $postArray["fPasswd"];
     $resultats = getUserByLogin($username);
     $resultats = $resultats->fetch();
+    $success = true;
     if ($resultats['isValid'] == 0) {
-        throw new Exception("Le compte est inactif");
+        $success = false;
+        //throw new Exception("Le compte est inactif");
     }
     if (empty($resultats['name'])) {
-        throw new Exception("Les données d'authentification sont incorrectes");
+        $success = false;
+        //We hash the username instead of database password
+        $hash = $resultats['name'];
+    }else{
+        $hash = $resultats['password'];
     }
-    $hash = $resultats['password'];
-    if (password_verify($passwdPost, $hash)) {
+    $passwordCorrect = password_verify($passwdPost, $hash);
+
+    if ($passwordCorrect & $success) {
         //Initialisation du tableau qui va contenir les informations de l'utilisateur.
         $infoUser = array(
             'email' => $resultats['email'],
