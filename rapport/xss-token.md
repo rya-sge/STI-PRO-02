@@ -42,9 +42,9 @@ if(isset($_GET[$COOKIE_NAME])){
 
 ![xss-message](./assets/xss-cookie/xss-message.PNG)
 
-L'utilisateur `admin`losqu'il clique sur sa boite de réception va déclencher l' effet du script malveillant, il sera redirigé vers le site malveillant.
+L'utilisateur `admin`losqu'il clique sur sa boite de réception va déclencher l' effet du script malveillant : celui-cieffectue une requête GET vers le site malveillant avec la valeur du cookie dans les paramètre Get.
 
-L'attaquant n'a plus qu'a afficher son fichier log.txt pour obtenir le cookie de session
+L'attaquant n'a plus qu'à afficher son fichier log.txt pour obtenir le cookie de session
 
 ![log-cookie](./assets/xss-cookie/log-cookie.PNG)
 
@@ -54,7 +54,7 @@ On peut ensuite remplacer notre cookie de session par la valeur de celui récup�
 
 ![change-cookie](./assets/xss-cookie/change-cookie.PNG)
 
-En constate en rafraichissant la page que l'onglet Administration est apparue
+En constate en rafraichissant la page que l'onglet `Administration` est apparue
 
 ![result](./assets/xss-cookie/result.PNG)
 

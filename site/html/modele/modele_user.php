@@ -1,9 +1,13 @@
 <?php
+/**
+modele.php
+Fonction : modele avec connexion avec le serveur et la BD
+exécution des requêtes
+Security Measure : fix timing attack for checkLogin
+____________________________________________________________
+ */
+
 define("ROOT_ERREUR", "vue/erreur");
-// modele.php
-// Fonction : modele avec connexion avec le serveur et la BD
-//            exécution des requêtes
-// ____________________________________________________________
 
 
 // -----------------------------------------------------
@@ -122,6 +126,7 @@ function infoUtilisateur()
  * @brief  Contrôle de login
  * @return $infoUser. COntient les informations de base de l'utilisateur (email, id et login)
  * @param les informations passées en POST
+ * @Security measure : fix timing attack
  */
 function checkLogin($postArray)
 {
