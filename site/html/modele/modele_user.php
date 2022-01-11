@@ -170,8 +170,8 @@ function checkLogin($postArray)
 function ajoutUser($postArray)
 {
     $db = getBD();
-    $email = $_POST['fEmail'];
-    $login = $postArray ["fLogin"];
+    $email = erreurText($_POST['fEmail']);
+    $login = erreurText($postArray ["fLogin"]);
     $passwdPost = $postArray["fPasswd"];
     $passwdConf = $postArray['fPasswdConf'];
     //Test des formulaires
@@ -262,7 +262,7 @@ function changePasswd($postArray)
 function changeLogin($postArray)
 {
     $db = getBD();
-    $NLogin = $postArray ["fNLogin"];
+    $NLogin = erreurText($postArray ["fNLogin"]);
     champVide($NLogin, "Nom d'utilisateur/login");
     erreurXss($NLogin);
     longChampValid($NLogin, "Nom d'utilisateur/login", 30);
