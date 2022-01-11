@@ -77,6 +77,7 @@ function addUser()
 {
     if (isset($_POST['fLogin'])) {
         try {
+            verifCSRF();
             ajoutUser($_POST);
             require ROOT_PROFIL . "vue_validation_utilisateur.php";
         } catch (Exception $e) {
@@ -95,6 +96,7 @@ function addUser()
 function updatePasswd()
 {
     if (isset($_POST['fUpdPasswd'])) {
+        verifCSRF();
         $email = $_GET['qLog'];
         updPasswd($_POST, $email);
     }
@@ -110,6 +112,7 @@ function profil()
         $infoUser = infoUtilisateur();//Récuper les données de l'utilisateur via le modèle
         //Variable post existe si l'utilisateur a cliqué sur le bouton modifer de son profil
         if (isset($_POST['fNProfil'])) {
+            verifCSRF();
             require ROOT_PROFIL . "vue_profil_upd.php"; //Affichge de la vue permettant de modifier son profil
         } else {//Affiche le profil avec les données de l'utilisateur
             require ROOT_PROFIL . "vue_profil.php";
@@ -128,6 +131,7 @@ function updateEmail()
     $infoUser = infoUtilisateur();
     if (isset($_SESSION['idUser']) AND isset($_POST['fBMEmail'])) {
         try {
+            verifCSRF();
             changeEmail();
             @header("location: index.php?action=vue_profil");
             exit();
@@ -149,6 +153,7 @@ function updateLogin()
     $infoUser = infoUtilisateur();
     if (isset($_SESSION['idUser']) AND isset($_POST['fBMLogin'])) {
         try {
+            verifCSRF();
             changeLogin($_POST);
             @header("location: index.php?action=vue_profil");
             exit();
@@ -170,6 +175,7 @@ function modifPasswd()
     $infoUser = infoUtilisateur();
     if (isset($_POST['fNPasswdPost'])) {
         try {
+            verifCSRF();
             changePasswd($_POST);
             $_SESSION['erreur2'] = false;
             @header("location: index.php?action=vue_profil");
@@ -194,6 +200,7 @@ function deleteUser()
     //Variable post existe si l'utilisateur a cliqué sur le bouton suppriner de son profil
     if (isset($_SESSION['idUser']) AND isset($_POST['delUser'])) {
         try {
+            verifCSRF();
             delUser($_SESSION['idUser']);//suppression de l'utilisateur
             session_destroy();//Destruction des variables de sessions
             //redirection ves la page de confirmation de modification
@@ -214,7 +221,7 @@ function deleteUser()
 function userProfile()
 {
     if (isset($_GET['qIdUser'])) {
-        $infoUser = infoUser($_GET['qIdUser']);//Récuper les données d'un utilisateur via le modèle
+        $infoUser = infoUser(checkInt($_GET['qIdUser']));//Récuper les données d'un utilisateur via le modèle
 
         //Affiche le profil avec les données de l'utilisateur
         require ROOT_PROFIL . "vue_profil_admin.php";

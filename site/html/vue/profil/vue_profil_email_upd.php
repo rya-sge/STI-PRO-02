@@ -21,6 +21,7 @@ Motidifer votre adresse email
 		<label>Adresse email</label>
 		<input class="form-control" name="fNEmail" type="text" value="<?php echo $infoUser['email'];?>" required></input>
 		</br>
+        <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
 		<button type="submit" class="btn btn-primary" name="fBMEmail">Enregistrer les modifications</button>
 		<button type="reset" class="btn btn-primary">Effacer</button>
     </div>

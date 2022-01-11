@@ -58,6 +58,7 @@ ob_start();
                             <option value=1>Actif</option>
                             <option value=0>Inactif</option>
                         </select>
+                        <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
                         <button type="submit" class="btn btn-primary" name="addRole">Envoyer</button>
                     </form>
                 </td>

@@ -2,7 +2,7 @@
 
 # Timing Attack
 
-## Analyse dynamic
+## Analyse dynamique
 
 L'analyse dynamique à consister à employer le projet Ruby suivant permettant de détecter ces vulnérabilités : https://github.com/ffleming/timing_attack
 
@@ -16,6 +16,8 @@ timing_attack -u http://localhost:8080/index.php?action=vue_login -b -p  --param
 
 Résultat : Pas de timing attack détecté
 
+
+
 - Test 2 
 
   Test effectué sur
@@ -27,6 +29,14 @@ timing_attack -q  -u http://localhost:8080/index.php?action=vue_login  -p  --par
 ```
 
 Résultat : on ne peut pas conclure que l'application est vulnérable
+
+![test-1](./assets/timing-attack/test-1.PNG)
+
+
+
+![test-2](./assets/timing-attack/test-2.PNG)
+
+
 
 ```bash
 ming_attack -q  -u http://localhost:8080/index.php?action=vue_login  -p  --parameters-file params.txt \

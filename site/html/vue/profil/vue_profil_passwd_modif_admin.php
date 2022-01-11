@@ -21,6 +21,7 @@ ob_start();
             <label>Nouveau mot de passe </label><input class="form-control" type="password" name="fNPasswdPost"required> </input>
             <label>Confirmer le nouveau mot de passe</label><input class="form-control" type="password" name="fNPasswdConf"required> </input>
             </br>
+            <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
             <input type="hidden" name="qIdUser" value="<?php echo $_GET['qIdUser']?>">
             <button type="submit" class="btn btn-primary" name="fModifPasswd">Enregistrer les modifications</button>
             <button type="reset" class="btn btn-primary">Effacer</button>

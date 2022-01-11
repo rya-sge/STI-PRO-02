@@ -43,7 +43,7 @@ function readMessage(){
 
     if (isset($_GET['qIdMessage']))
     {
-        $resultat = getMessageContent($_GET['qIdMessage']);
+        $resultat = getMessageContent(checkInt($_GET['qIdMessage']));
         require "vue/mailBox/vue_message.php";
 
     }else{
@@ -57,7 +57,7 @@ function deleteMessage(){
 
     //Variable post existe si l'utilisateur a cliqué sur le bouton supprimer
     if (isset($_GET['qIdMessage'])) {
-        delMessage($_GET['qIdMessage']);
+        delMessage(checkInt($_GET['qIdMessage']));
         @header("location: index.php?action=vue_inbox");
     } else {
         throw new Exception("Aucun message n'est sélectionné");
@@ -69,6 +69,7 @@ function addMessage()
     //Variable post existe si l'utilisateur a cliqué sur le bouton Ajouter
     if (isset($_POST['addMessage'])) {
             try {
+                verifCSRF();
                 addMessageBdd($_POST);
                 //redirection ves la page de gestion des algorithmes
                
@@ -85,8 +86,8 @@ function respondMessage(){
   if (isset($_GET['qIdSender']) && isset($_GET['qIdMessage']))
   {
 
-      $resultat = getMessageContent($_GET['qIdMessage']);
-      $_POST['recipient'] = $_GET['qIdSender'];
+      $resultat = getMessageContent(checkInt($_GET['qIdMessage']));
+      $_POST['recipient'] = checkInt($_GET['qIdSender']);
       require "vue/mailBox/vue_message_response.php";
 
 

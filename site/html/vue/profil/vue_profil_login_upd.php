@@ -21,6 +21,7 @@ Changer votre notre d'utilisateur
 		<label>Nom d'utilisateur</label>
 		<input class="form-control" type="text" name="fNLogin" value="<?php echo $_SESSION['login']; ?>" required></input>
 		</br>
+        <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
 		<button type="submit" class="btn btn-primary" name="fBMLogin">Enregistrer les modifications</button>
 		<button type="reset" class="btn btn-primary">Effacer</button>
     </div>

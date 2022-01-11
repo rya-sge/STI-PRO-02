@@ -3,6 +3,12 @@
 // ------------ Erreur ---------------------
 //Fonctions  de traitement des erreurs
 
+//Fonction pour les champs contenant du text donc des apostrophes
+function erreurText($champ1)
+{
+    $champ1 = htmlspecialchars($champ1, ENT_QUOTES);
+    return $champ1;
+}
 
 
 /*

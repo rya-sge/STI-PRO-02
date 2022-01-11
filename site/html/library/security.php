@@ -16,4 +16,17 @@ function verifCSRF(){
     }
 }
 
+/*
+ * Source :
+ * https://github.com/rya-sge/PRO-Angular-Php/blob/master/dev/Backend/zone_protected/security.php
+ */
+function checkInt($val){
+    if(! ctype_digit($val) && !is_int($val))
+    {
+        throw new Exception("L'identifiant n'est pas valide");
+    }
+
+    return intval($val);
+}
+
 ?>

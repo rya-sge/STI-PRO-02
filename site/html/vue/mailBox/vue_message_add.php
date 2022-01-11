@@ -42,6 +42,7 @@ ob_start();
                         </br>
                         <!--Source : https://html5-tutorial.net/forms/checkboxes/ -->
                         </br>
+                        <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
                         <button type="submit" class="btn btn-primary" name="addMessage">Envoyer le message</button>
                         <button type="reset" class="btn btn-primary">Effacer</button>
                     </div>

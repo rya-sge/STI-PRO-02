@@ -53,6 +53,7 @@ function deleteUserForAdmin(){
 function updUserValid(){
     if (isset($_GET['qIdUser']) && isset($_POST['valid'])) {
         try {
+            verifCSRF();
             updateValidById($_GET['qIdUser'], $_POST['valid']);
         } catch (Exception $e) {
             $_SESSION['erreur'] = $e->getMessage();
@@ -68,6 +69,7 @@ function modifPasswdAdmin()
 {
     if (isset($_POST['fNPasswdPost'])) {
         try {
+            verifCSRF();
             changePasswdAdmin($_POST);
             $_SESSION['erreur2'] = false;
             @header("location: index.php?action=vue_profil_admin&qIdUser=" . $_POST['qIdUser']);

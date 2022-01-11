@@ -69,10 +69,10 @@ function addMessageBdd($postArray)
 {
     $db = getBD();
     //Récupération des données passées en post
-    $subject = $postArray ["subject"];
-    $body = $postArray ["body"];
+    $subject = erreurText($postArray ["subject"]);
+    $body = erreurText($postArray ["body"]);
 
-    $idRecipient= getIdUser($postArray ["recipient"]);
+    $idRecipient= getIdUser(erreurText($postArray ["recipient"]));
 
     try{
 
