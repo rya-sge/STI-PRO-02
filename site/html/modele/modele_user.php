@@ -362,10 +362,10 @@ function updateValidById($idUtilisateur, $isValid)
     $db = getBD();
     // Création de la string pour la requête
     $requete = $db->prepare("UPDATE user
-                                        SET isValid =  ?
-                                       WHERE id = ?");
+                                        SET isValid = '" . $isValid . "'
+                                       WHERE id = '" . $idUtilisateur . "'");
     // Exécution de la requete
-    $requete->execute(array($isValid, $idUtilisateur));
+    $requete->execute();
     if ($requete->rowCount()) {
         $_SESSION['modif'] = "L'activité de l'utilisateur a été modifiée";
     } else {
