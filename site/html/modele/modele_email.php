@@ -50,7 +50,7 @@ function delMessage($idMessage)
     $db = getBD();
     $requete = 'DELETE 
                 FROM message
-                WHERE id =  :idMessage;';
+                WHERE idMessage =  :idMessage;';
     $requete =  $db->prepare($requete);
     $requete->bindValue(':idMessage', $idMessage, PDO::PARAM_INT);
     $requete = $db->exec($requete);

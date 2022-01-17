@@ -40,7 +40,7 @@ ob_start();
                         <td width="33%"><?php echo $resultat['name']; ?></td>
                         <td width="33%">
                             <a href="index.php?action=vue_inbox_delete&qIdMessage=<?= $resultat['id']; ?>"
-                               onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur');">
+                               onclick="return confirm('Etes-vous sûr de vouloir supprimer ce message ?');">
                                 <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal"
                                         data-target="#delete"><span class="glyphicon glyphicon-trash"></span>
                                 </button>
