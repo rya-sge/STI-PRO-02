@@ -53,7 +53,7 @@ function deleteUserForAdmin(){
 function updUserValid(){
     if (isset($_GET['qIdUser']) && isset($_POST['valid'])) {
         try {
-            verifCSRF();
+            //verifCSRF();
             updateValidById($_GET['qIdUser'], $_POST['valid']);
         } catch (Exception $e) {
             $_SESSION['erreur'] = $e->getMessage();
