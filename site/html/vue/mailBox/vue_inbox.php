@@ -50,7 +50,7 @@ ob_start();
                                         data-target="#delete"><span class="glyphicon glyphicon-sunglasses"></span>
                                 </button>
                             </a>
-                            <a href="index.php?action=vue_message_respond&qIdMessage=<?= $resultat['id'];?>&qIdSender=<?= $resultat['name'];?>">
+                            <a href="index.php?action=vue_message_respond&qIdMessage=<?= $resultat['id'];?>&qNameSender=<?= $resultat['name'];?>">
                                 <button class="btn btn-primary btn-xs" data-title="answer" data-toggle="modal"
                                         data-target="#delete"><span class="glyphicon-phone-alt"></span>
                                 </button>

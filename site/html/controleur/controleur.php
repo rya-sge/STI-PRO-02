@@ -83,11 +83,11 @@ function addMessage()
 
 function respondMessage(){
     //Variable post existe si l'utilisateur a cliqué sur le bouton répondre
-  if (isset($_GET['qIdSender']) && isset($_GET['qIdMessage']))
+  if (isset($_GET['qNameSender']) && isset($_GET['qIdMessage']))
   {
 
       $resultat = getMessageContent(checkInt($_GET['qIdMessage']));
-      $_POST['recipient'] = checkInt($_GET['qIdSender']);
+      $_POST['recipient'] = $_GET['qNameSender'];
       require "vue/mailBox/vue_message_response.php";
 
 
