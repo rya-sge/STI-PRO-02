@@ -7,9 +7,9 @@
 function verifCSRF(){
     $isValid = false;
     if (!empty($_POST['token'])) {
-        if (hash_equals($_SESSION['token'], $_POST['token'])) {
+        /*if (hash_equals($_SESSION['token'], $_POST['token'])) {
             $isValid = true;
-        }
+        }*/
     }
     if(!$isValid){
         throw new Exception("Le formulaire ne peut pas être validé");
