@@ -50,7 +50,9 @@ function delMessage($idMessage)
     $db = getBD();
     $requete = 'DELETE 
                 FROM message
-                WHERE id ="' . $idMessage . '" ;';
+                WHERE id =  :idMessage;';
+    $requete =  $db->prepare($requete);
+    $requete->bindValue(':idMessage', $idMessage, PDO::PARAM_INT);
     $requete = $db->exec($requete);
     if ($requete) {
         $_SESSION['modif'] = "Le message a été supprimé";

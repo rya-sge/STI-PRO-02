@@ -39,16 +39,18 @@ function getIdUser($login)
  * @param nom nom utilisateur
  * @param idRole nouveau Rôle
  */
-function updateRoleByName($nom, $idRole)
+function updateRoleByName($name, $idRole)
 {
     $db = getBD();
     // Création de la string pour la requête
     $requete = $db->prepare("UPDATE user
-                                       SET idRole = '" . $idRole . "'
-                                       WHERE name = '" . $nom . "'
+                                       SET idRole = :idRole
+                                       WHERE name = :name
                                        AND id !='" . $_SESSION['idUser'] ."'
                                        AND id != 1;");
     // Exécution de la requete
+    $requete->bindValue(':idRole', $idRole, PDO::PARAM_INT);
+    $requete->bindValue(':nom', $name);
     $requete->execute();
     if ($requete->rowCount()) {
         $_SESSION['modif'] = "Le rôle de l'utilisateur a été modifié";
@@ -62,14 +64,16 @@ function updateRoleByName($nom, $idRole)
  * @param idUtilisateur de l'utilisateur
  * @param idRole nouveau Rôle
  */
-function updateRoleById($idUtilisateur, $idRole)
+function updateRoleById($idUser, $idRole)
 {
     $db = getBD();
     // Création de la string pour la requête
     $requete = $db->prepare("UPDATE user
-                                        SET idRole = '" . $idRole . "'
-                                       WHERE id = '" . $idUtilisateur . "'");
+                                        SET idRole = :idRole
+                                       WHERE id = :idUser");
     // Exécution de la requete
+    $requete->bindValue(':idRole', $idRole, PDO::PARAM_INT);
+    $requete->bindValue(':idUser', $idUser, PDO::PARAM_INT);
     $requete->execute();
     if ($requete->rowCount()) {
         $_SESSION['modif'] = "Le rôle de l'utilisateur a été modifié";
@@ -242,9 +246,8 @@ function changePasswd($postArray)
             //Mise à jour des informations
             $req = $db->prepare("UPDATE user SET password=:password
                 WHERE id='" . $_SESSION['idUser'] . "';");
-            $req->execute(array(
-                'password' => $passwd,
-            ));
+            $req->bindValue(':password', $passwd);
+            $req->execute();
             $_SESSION['modif'] = "Votre mot de passe a été modifié";
         } else {
             throw new Exception("Les données d'authentification sont incorrectes");
@@ -279,9 +282,8 @@ function changeLogin($postArray)
             //Mise à jour des informations
             $req = $db->prepare("update user set name=:name
             WHERE id='" . $_SESSION['idUser'] . "';");
-            $req->execute(array(
-                'name' => $NLogin,
-            ));
+            $req->bindValue(':name', $NLogin);
+            $req->execute();
             $_SESSION['login'] = $NLogin;
             $_SESSION['modif'] = "Votre nom d'utilisateur a été modifié";
         } else {
@@ -301,7 +303,9 @@ function delUser($idUser)
 {
     $db = getBD();
     $requete = 'DELETE FROM user
-                WHERE id ="' . $idUser . '";';
+                WHERE id = :idUser";';
+    $requete = $db->prepare($requete);
+    $requete->bindValue(':idUser', $idUser, PDO::PARAM_INT);
     $db->exec($requete);
 }
 
@@ -339,10 +343,11 @@ function changePasswdAdmin($postArray)
     $passwd = $passwdHash;
     //Mise à jour des informations
     $req = $db->prepare("UPDATE user SET password=:password
-        WHERE id='" . $postArray['qIdUser'] . "';");
-    $req->execute(array(
-        'password' => $passwd,
-    ));
+        WHERE id= :idUser;");
+    $req->bindValue(':password', $passwd);
+    $req->bindValue(':idUser', $postArray['qIdUser'], PDO::PARAM_INT);
+    $req->execute();
+
     $_SESSION['modif'] = "Votre mot de passe a été modifié";
 
 }
@@ -357,8 +362,10 @@ function updateValidById($idUtilisateur, $isValid)
     $db = getBD();
     // Création de la string pour la requête
     $requete = $db->prepare("UPDATE user
-                                        SET isValid = '" . $isValid . "'
-                                       WHERE id = '" . $idUtilisateur . "'");
+                                        SET isValid =  :isValid 
+                                       WHERE id = :idUtilisateur");
+    $requete->bindValue(':isValid', $isValid);
+    $requete->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
     // Exécution de la requete
     $requete->execute();
     if ($requete->rowCount()) {
