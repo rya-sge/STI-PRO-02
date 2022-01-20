@@ -22,6 +22,7 @@ define("ROOT_MAILBOX", "vue/mailbox");
 define("NON_VALIDE", "En attente de validation");
 define("VALIDE", "Validé");
 
+
 // Affichage de la page d'accueil
 function accueil()
 {

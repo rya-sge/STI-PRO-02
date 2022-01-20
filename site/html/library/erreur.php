@@ -1,5 +1,6 @@
 <?php
 
+define("LENGTH_MDP",     "12");
 // ------------ Erreur ---------------------
 //Fonctions  de traitement des erreurs
 
@@ -20,8 +21,24 @@ function erreurText($champ1)
  */
 function erreurPasswd($passwdConf, $passwdPost)
 {
+    //Fonction pour vérifier le mot de passe
+    $erreur = false;
     if ($passwdConf != $passwdPost) {
         throw new Exception("Les mots de passes ne correspondent pas");
+        $erreur = true;
+        return true;
+    }
+    if ($erreur == false) {
+        $lengPasswd = strlen($passwdPost);
+        if ($lengPasswd < LENGTH_MDP) {
+            throw new Exception("Le mot de passe est trop court. Il faut au moins " . LENGTH_MDP. " caractères");
+            $erreur = true;
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
     }
 }
 
