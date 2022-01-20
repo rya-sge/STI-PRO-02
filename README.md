@@ -2,13 +2,17 @@
 
 Sécurisation d'un site web **vulnérable** simulant une messagerie.
 
-Ce site permet de tester différents failles de sécurité.
+Ce site permet de tester différents failles de sécurité et implémenter leur sécurisation.
 
 ## Auteurs
 
 Ryan Sauge
 
 Michael Ruckstuhl
+
+## Rapport
+
+Dans le dossier rapport, le fichier rapport.pdf explique l'analyse de menace effectuée, les attaques possibles détectées ainsi que les correctifs appliquées pour défendre l'application contre ces dernières.
 
 ## Installation
 
