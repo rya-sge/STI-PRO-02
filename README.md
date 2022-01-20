@@ -12,7 +12,7 @@ Michael Ruckstuhl
 
 ## Rapport
 
-Dans le dossier rapport, le fichier rapport.pdf explique l'analyse de menace effectuée, les attaques possibles détectées ainsi que les correctifs appliqués pour défendre l'application contre ces dernières.
+Dans le dossier `rapport`, le fichier `rapport.pdf` explique l'analyse de menace effectuées, les attaques possibles détectées ainsi que les correctifs appliqués pour défendre l'application contre ces dernières.
 
 ## Installation
 
@@ -59,9 +59,9 @@ Le répertoire "databases" contient :
 
 Le répertoire "html" contient :
 
-    - exemple.php : un fichier php qui réalise des opérations basiques SQLite sur le fichier contenu dans le repertoire databases
-    - helloworld.php : un simple fichier hello world pour vous assurer que votre container Docker fonctionne correctement
-    - phpliteadmin.php : une interface d'administration pour la base de données SQLite qui se trouve dans le repertoire databases
+- exemple.php : un fichier php qui réalise des opérations basiques SQLite sur le fichier contenu dans le repertoire databases
+- helloworld.php : un simple fichier hello world pour vous assurer que votre container Docker fonctionne correctement
+- phpliteadmin.php : une interface d'administration pour la base de données SQLite qui se trouve dans le repertoire databases
 
 Le mot de passe pour phpliteadmin est "admin".
 
