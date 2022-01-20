@@ -1,8 +1,14 @@
 ## Description
 
-Implémentation d'un site web **vulnérable** simulant une messagerie.
+Sécurisation d'un site web **vulnérable** simulant une messagerie.
 
 Ce site permet de tester différents failles de sécurité.
+
+## Auteurs
+
+Ryan Sauge
+
+Michael Ruckstuhl
 
 ## Installation
 
