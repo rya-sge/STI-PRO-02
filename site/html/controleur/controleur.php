@@ -15,10 +15,13 @@ require "modele/modele_administration.php";
 require "library/permission.php";
 require "library/erreur.php";
 require "library/security.php";
+
+define("ROOT_ADMINISTRATION", "vue/administration/");
 define("ROOT_PROFIL", "vue/profil/");
 define("ROOT_MAILBOX", "vue/mailbox");
 define("NON_VALIDE", "En attente de validation");
 define("VALIDE", "Validé");
+
 
 // Affichage de la page d'accueil
 function accueil()
@@ -41,9 +44,10 @@ function mailInbox(){
 
 function readMessage(){
 
-    if (isset($_GET['qIdMessage']))
+    if (isset($_POST['qIdMessage']))
     {
-        $resultat = getMessageContent(checkInt($_GET['qIdMessage']));
+        verifCSRF();
+        $resultat = getMessageContent(checkInt($_POST['qIdMessage']));
         require "vue/mailBox/vue_message.php";
 
     }else{
@@ -56,8 +60,9 @@ function deleteMessage(){
 
 
     //Variable post existe si l'utilisateur a cliqué sur le bouton supprimer
-    if (isset($_GET['qIdMessage'])) {
-        delMessage(checkInt($_GET['qIdMessage']));
+    if (isset($_POST['qIdMessage'])) {
+        verifCSRF();
+        delMessage(checkInt($_POST['qIdMessage']));
         @header("location: index.php?action=vue_inbox");
     } else {
         throw new Exception("Aucun message n'est sélectionné");
@@ -83,11 +88,11 @@ function addMessage()
 
 function respondMessage(){
     //Variable post existe si l'utilisateur a cliqué sur le bouton répondre
-  if (isset($_GET['qIdSender']) && isset($_GET['qIdMessage']))
+  if (isset($_POST['qNameSender']) && isset($_POST['qIdMessage']))
   {
-
-      $resultat = getMessageContent(checkInt($_GET['qIdMessage']));
-      $_POST['recipient'] = checkInt($_GET['qIdSender']);
+      verifCSRF();
+      $resultat = getMessageContent(checkInt($_POST['qIdMessage']));
+      $_POST['recipient'] = $_POST['qNameSender'];
       require "vue/mailBox/vue_message_response.php";
 
 

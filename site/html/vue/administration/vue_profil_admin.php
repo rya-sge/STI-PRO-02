@@ -42,22 +42,36 @@ ob_start();
 			<tr>
 			<td>Mot de passe</td>
                 <td></td>
-			<td><a href="index.php?action=vue_profil_passwd_modif_admin&qIdUser=<?php echo $infoUser['id'] ?>"><button class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-pencil"></span></button></a></td>
+			<td><a href="index.php?action=vue_profil_passwd_modif_admin&qIdUser=<?php echo $infoUser['id'] ?>">
+                    <button class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-pencil"></span></button></a>
+            </td>
 			</tr>
             <tr>
                 <td>Rôle</td>
                 <td><?php  echo $infoUser['idRole'] == 1 ? "Administrateur" : "Collaborateur"; ?></td>
-                <td></td>
+                <td>
+                    <form class='form' method='POST' action="index.php?action=vue_user_delete">
+                        <input name="qIdUser" value="<?php echo $infoUser['id'] ?>" type="hidden" />
+                        <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
+                        <button type="submit" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal"
+                                data-target="#delete" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur ?');"
+                        ><span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </form>
+                </td>
+
             </tr>
 			<tr>
 				<td>Etat du compte</td>
 				<td><?php echo $infoUser['isValid'] == 1 ? "Actif" : "Inactif" ?></td>
                 <td>
-                    <form class="form" method="POST" action="index.php?action=vue_valid&qIdUser=<?php echo $infoUser['id'] ?>" enctype="multipart/form-data">
+                    <form class="form" method="POST" action="index.php?action=vue_valid"
+                          enctype="multipart/form-data">
                         <select name="valid">
                             <option value=1>Actif</option>
                             <option value=0>Inactif</option>
                         </select>
+                        <input name="qIdUser" value="<?php echo $infoUser['id'] ?>" type="hidden" />
                         <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
                         <button type="submit" class="btn btn-primary" name="addRole">Envoyer</button>
                     </form>

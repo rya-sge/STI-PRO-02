@@ -18,8 +18,11 @@ ob_start();
 	
 	<div  class="col-lg-offset-4 col-md-offset-4 col-sm-offset-4">
 	<form class="form" method="POST" action="index.php?action=vue_profil_del">
-    <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
-	<input style="align-text:center" type="submit" name="delUser" class='btn btn-danger' onclick="return confirm('Etes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible');" value="Supprimer son compte" />
+        <input name="qIdUser" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
+        <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
+        <input style="align-text:center" type="submit" name="delUser" class='btn btn-danger'
+               onclick="return confirm('Etes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible');"
+               value="Supprimer son compte" />
 	</form>
 	</div>
 </article>

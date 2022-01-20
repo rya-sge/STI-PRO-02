@@ -10,7 +10,7 @@ $titre = 'HashMail - message';
 ob_start();
 
 ?>
-<h2>Gestion des utilisateurs</h2>
+<h2>Liste des messages</h2>
 <p class="textModif"><?php
     if (isset($_SESSION['modif'])) {
         echo $_SESSION['modif'];
@@ -34,17 +34,23 @@ ob_start();
 
             <td width="20%"><?php echo $resultat['subject']; ?></td>
             <td width="20%">
-                <a href="index.php?action=vue_inbox_delete&qIdMessage=<?= $resultat['id']; ?>"
-                   onclick="return confirm('Etes-vous sûr de vouloir supprimer ce message');">
-                    <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal"
-                            data-target="#delete"><span class="glyphicon glyphicon-trash"></span>
+                <form class='form' method='POST' action="index.php?action=vue_inbox_delete">
+                    <input name="qIdMessage" value="<?php echo $resultat['id'] ?>" type="hidden" />
+                    <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
+                    <button type="submit" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal"
+                            data-target="#delete" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce message');"
+                    ><span class="glyphicon glyphicon-trash"></span>
                     </button>
-                </a>
-                <a href="index.php?action=vue_message_respond&qIdMessage=<?= $resultat['id'];?>&qIdSender=<?= $resultat['name'];?>">
-                    <button class="btn btn-primary btn-xs" data-title="answer" data-toggle="modal"
+                </form>
+
+                <form class='form' method='POST' action="index.php?action=vue_message_respond">
+                    <input name="qIdMessage" value="<?php echo $resultat['id'] ?>" type="hidden" />
+                    <input name="qNameSender" value="<?php echo $resultat['name'] ?>" type="hidden" />
+                    <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
+                    <button type="submit" class="btn btn-primary btn-xs" data-title="answer" data-toggle="modal"
                             data-target="#delete"><span class="glyphicon-phone-alt"></span>
                     </button>
-                </a>
+                </form>
             </td>
         </tr>
     </table>

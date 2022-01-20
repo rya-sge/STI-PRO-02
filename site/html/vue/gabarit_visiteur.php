@@ -47,9 +47,7 @@ http://www.code-couleur.com/
 					<?php if(!isset($_SESSION['login']))
 					{
 						echo "<a href='index.php?action=vue_login'>
-					<button type='button' class='btn btn-primary btn-sm'>Se connecter</button></a>
-					<a href='index.php?action=vue_inscription'>
-					<button type='button' class='btn btn-primary btn-sm'>Créer un compte</button></a>";		
+					<button type='button' class='btn btn-primary btn-sm'>Se connecter</button></a>";
 													
 					}
 					else

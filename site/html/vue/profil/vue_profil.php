@@ -42,7 +42,8 @@ ob_start();
 			<tr>
 			<td>Mot de passe</td>
                 <td></td>
-			<td><a href="index.php?action=vue_profil_passwd_modif"><button class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-pencil"></span></button></a></td>
+			<td><a href="index.php?action=vue_profil_passwd_modif"><button class="btn btn-primary btn-xs" >
+                        <span class="glyphicon glyphicon-pencil"></span></button></a></td>
 			</tr>
             <tr>
                 <td>Rôle</td>
@@ -51,7 +52,6 @@ ob_start();
 			<tr>
 				<td>Etat du compte</td>
 				<td>Actif</td>
-				<td><a href="index.php?action=vue_profil_del"><button class="btn btn-danger" >Supprimer le compte</button></a></td>
 			</tr>
 		<tbody>
 	</table>

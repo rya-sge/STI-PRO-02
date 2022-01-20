@@ -221,10 +221,11 @@ function deleteUser()
 function userProfile()
 {
     if (isset($_GET['qIdUser'])) {
+        //verifCSRF();
         $infoUser = infoUser(checkInt($_GET['qIdUser']));//Récuper les données d'un utilisateur via le modèle
 
         //Affiche le profil avec les données de l'utilisateur
-        require ROOT_PROFIL . "vue_profil_admin.php";
+        require ROOT_ADMINISTRATION . "vue_profil_admin.php";
     } else {
         require "vue/vue_visiteur.php";
     }

@@ -2,56 +2,84 @@
 /**Lister les messages reçus pour l'utilisateur
  * @return false|PDOStatement
  */
-    function listMailInbox()
-    {
-        $db = getBD();
-        // Création de la string pour la requête
-        $requete = "SELECT message.id, dateReceipt, recipient, sender, body, subject, name  
+function listMailInbox()
+{
+    $db = getBD();
+    // Création de la string pour la requête
+    $requete = $db->prepare("SELECT message.id, dateReceipt, recipient, sender, body, subject, name  
                     from message
                     INNER JOIN user 
                     ON sender = user.id
                     WHERE
-                    recipient  = '" . $_SESSION["idUser"] . "'
+                    recipient  = :idUser
                     ORDER BY dateReceipt DESC;
-                   ";
-        // Exécution de la requete
-        return $db->query($requete);
-    }
+                   ");
+    $requete->bindValue(':idUser', $_SESSION["idUser"], PDO::PARAM_INT);
+    $requete->execute();
+    // Exécution de la requete
+    return $requete->fetchAll();
+}
 
 /**
  * Récupérer le contenu d'un message
  * @param $idMessage
  * @return mixed
  *
+ * @throws Exception
  */
-    function getMessageContent($idMessage)
-        {
-            $db = getBD();
-            // Création de la string pour la requête
-            $requete = "SELECT message.id, dateReceipt, recipient, sender, body, subject, name  from message
+function getMessageContent($idMessage)
+{
+    $db = getBD();
+    $isPresent = selectMessageUserFromId($idMessage);
+    if (empty($isPresent['id'])) {
+        throw new Exception("Erreur : vous ne pouvez pas récupérer ce message");
+    }
+    // Création de la string pour la requête
+    $requete = "SELECT message.id, dateReceipt, recipient, sender, body, subject, name  from message
                         LEFT JOIN user 
                             ON sender = user.id
                         WHERE
-                        recipient  = '" . $_SESSION["idUser"] . "'
-                        AND message.id = $idMessage;";
-            // Exécution de la requete
-            return $db->query($requete)->fetch();
-        }
+                        recipient  = :idUser
+                        AND message.id = :idMessage;";
+    // Exécution de la requete
+    $requete = $db->prepare($requete);
+    $requete->bindValue(':idMessage', $idMessage, PDO::PARAM_INT);
+    $requete->bindValue(':idUser', $_SESSION["idUser"], PDO::PARAM_INT);
+    $requete->execute();
+    return $requete->fetch();
+}
+
+function selectMessageUserFromId($idMessage){
+    $db = getBD();
+
+    // Création de la string pour la requête
+    $requete = $db->prepare("SELECT id from message where id = :idMessage");
+
+    // Exécution de la requete
+    $requete->bindValue(':idMessage', $idMessage, PDO::PARAM_INT);
+    $requete->execute();
+    return $requete->fetch();
+}
 
 
-
-
-/*
- * @brief supprimer un algorithme
- * @param L'id de l'algorithme à supprimer
+/**
+ * @brief supprimer un message
+ * @param $idMessage à supprimer
+ * @throws Exception
  */
 function delMessage($idMessage)
 {
     $db = getBD();
+    $isPresent = selectMessageUserFromId($idMessage);
+    if (empty($isPresent['id'])) {
+        throw new Exception("Erreur : vous ne pouvez pas supprimer ce message");
+    }
     $requete = 'DELETE 
                 FROM message
-                WHERE id ="' . $idMessage . '" ;';
-    $requete = $db->exec($requete);
+                WHERE id = :idMessage;';
+    $requete = $db->prepare($requete);
+    $requete->bindValue(':idMessage', $idMessage, PDO::PARAM_INT);
+    $requete = $requete->execute();
     if ($requete) {
         $_SESSION['modif'] = "Le message a été supprimé";
     } else {
@@ -59,7 +87,7 @@ function delMessage($idMessage)
     }
 }
 
-        /*
+/*
 * @brief Ajouter un boiteMail
 * @param Donnée POST du formulaire
 * @details
@@ -72,15 +100,15 @@ function addMessageBdd($postArray)
     $subject = erreurText($postArray ["subject"]);
     $body = erreurText($postArray ["body"]);
 
-    $idRecipient= getIdUser(erreurText($postArray ["recipient"]));
+    $idRecipient = getIdUser(erreurText($postArray ["recipient"]));
 
-    try{
-
-        $reqSelect = "SELECT * 
+    try {
+        $reqSelect = $db->prepare("SELECT * 
                  FROM user
-                 WHERE id='" . $idRecipient . "';";
-        $res = $db->query($reqSelect);
-        $ligne = $res->fetch(); // récupère la valeur du login sélectionné s'il y en a un
+                 WHERE id = :idRecipient;");
+        $reqSelect->bindValue(':idRecipient', $idRecipient, PDO::PARAM_INT);
+        $reqSelect->execute();
+        $ligne = $reqSelect->fetch(); // récupère la valeur du login sélectionné s'il y en a un
         // Vérifier que l'utilisateur existe
         if (empty($ligne['id'])) {
             $_SESSION['modif'] = "L'utilisateur n'existe pas";
@@ -88,18 +116,19 @@ function addMessageBdd($postArray)
         }
         $req = $db->prepare('INSERT INTO message (sender, recipient, subject, body, dateReceipt)
                                       VALUES (:sender, :recipient, :subject, :body, :dateReceipt)');
-        $req->execute(array(
-            'sender' => $_SESSION['idUser'],
-            'dateReceipt' => date('Y-m-d H:i:s'),
-            'recipient' => $idRecipient,
-            'subject' => $subject,
-            'body' => $body,
-        ));
+        $req->bindValue(':sender', $_SESSION['idUser'], PDO::PARAM_INT);
+        $req->bindValue(':recipient', $idRecipient, PDO::PARAM_INT);
+        $req->bindValue(':subject', $subject);
+        $req->bindValue(':body', $body);
+        $req->bindValue(':dateReceipt', date('Y-m-d H:i:s'));
+
+        $req->execute();
         $_SESSION['modif'] = "Le message a été envoyé.";
-    } catch(Exception $e){
+    } catch (Exception $e) {
         throw new Exception("Erreur : le message n'a pas pu être envoyé");
     }
 }
+
 ?>
 
 

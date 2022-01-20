@@ -14,7 +14,8 @@ ob_start();
 <article>
   
 <article>
-  
+    <a href='index.php?action=vue_role_gestion'>
+        <button type='button' class='btn btn-primary btn-sm'>Retourner sur la page de gestion</button></a>
   <form class='form' method='POST' action="index.php?action=vue_inscription">
 	<div class="form-group">
 		<label>Nom d'utilisateur*</label>
@@ -23,12 +24,13 @@ ob_start();
 		<label>Email*</label>
         <input class="form-control" type="email" placeholder="Entrez votre adresse email" name="fEmail" value="<?=@$_POST['fEmail'] ?>" required/>
 		</br>
-		<label>Mot de passe*</label>
+		<label>Mot de passe (min 12 caractères)*</label>
 		<input class="form-control"  type="password" placeholder="Entrez votre mot de passe" name="fPasswd" required/>
 		</br>
 		<label>Confirmer mot de passe*</label>
 		<input class="form-control"  type="password" placeholder="Entrez votre mot de passe" name="fPasswdConf"  required/>
 		</br>
+        <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
 		<button type="submit" class="btn btn-primary" name="fConnexion">Créer le compte</button>
 		<button type="reset" class="btn btn-primary">Effacer</button>
     </div>
