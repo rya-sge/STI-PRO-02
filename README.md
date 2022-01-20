@@ -12,7 +12,7 @@ Michael Ruckstuhl
 
 ## Rapport
 
-Dans le dossier rapport, le fichier rapport.pdf explique l'analyse de menace effectuée, les attaques possibles détectées ainsi que les correctifs appliquées pour défendre l'application contre ces dernières.
+Dans le dossier rapport, le fichier rapport.pdf explique l'analyse de menace effectuée, les attaques possibles détectées ainsi que les correctifs appliqués pour défendre l'application contre ces dernières.
 
 ## Installation
 
