@@ -22,8 +22,7 @@ ob_start();
 		<br />
 		<div class="btn-group row" >
 			<div class="col-lg-offset-9 col-lg-6 col-md-offset-9 col-md-6 ">
-			<a href='index.php?action=vue_inscription'><button type='button' class='btn btn-primary btn-lg'  >Créer un compte</button></a><br /><br />
-			<a href='index.php?action=vue_login'><button type='button' class='btn btn-primary btn-sm'  >Se connecter</button></a>
+			<a href='index.php?action=vue_login'><button type='button' class='btn btn-primary btn-lg'  >Se connecter</button></a>
 		</div>
 	</div>
 	</div>

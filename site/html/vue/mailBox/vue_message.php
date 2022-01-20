@@ -44,9 +44,9 @@ ob_start();
                 </form>
 
                 <form class='form' method='POST' action="index.php?action=vue_message_respond">
-                    <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
                     <input name="qIdMessage" value="<?php echo $resultat['id'] ?>" type="hidden" />
-                    <input name="qIdSender" value="<?php echo $resultat['name'] ?>" type="hidden" />
+                    <input name="qNameSender" value="<?php echo $resultat['name'] ?>" type="hidden" />
+                    <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
                     <button type="submit" class="btn btn-primary btn-xs" data-title="answer" data-toggle="modal"
                             data-target="#delete"><span class="glyphicon-phone-alt"></span>
                     </button>
