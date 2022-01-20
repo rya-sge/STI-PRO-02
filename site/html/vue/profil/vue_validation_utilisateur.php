@@ -15,15 +15,15 @@ ob_start();
             <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 ">
                 <div class="cadre"   >
                     <p>
-                        Votre compte a été créee. Vous  pouvez dès à présent vous connecter au site.
+                        Le compte a été créee. Vous  pouvez dès à présent vous connecter au site.
                     </p>
                 </div>
                 <br />
                 <br />
                 <div class="btn-group row" >
                     <div class="col-lg-offset-9 col-lg-6 col-md-offset-9 col-md-6 ">
-                        <a href='index.php?action=vue_accueil'><button type='button' class='btn btn-primary btn-lg'
-                            >Retourner à la page d'accueil</button></a><br /><br />
+                        <a href='index.php?action=vue_role_gestion'><button type='button' class='btn btn-primary btn-lg'
+                            >Retourner à la page de gestion des utilisateurs</button></a><br /><br />
                     </div>
                 </div>
             </div>

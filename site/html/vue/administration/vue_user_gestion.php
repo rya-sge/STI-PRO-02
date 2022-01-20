@@ -23,6 +23,8 @@ ob_start();
 <article>
     <div class="row">
         <div class="col-lg-8"> <!--Source : https://www.w3schools.com/bootstrap/bootstrap_tables.asp  -->
+            <a href='index.php?action=vue_inscription'>
+                <button type='button' class='btn btn-primary btn-sm'>Créer un nouvel utilisateur</button></a>
             <table class="table table-bordered">
                 <tr>
                     <th>Id</th>
@@ -38,23 +40,26 @@ ob_start();
                         <td width="20%"><?php echo $resultat['id']; ?></td>
                         <td width="33%"><?php echo $resultat['name']; ?></td>
                         <td width="33%">
-                            <a href="index.php?action=vue_user_delete&qIdUser=<?= $resultat['id']; ?>"
-                               onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur');">
-                                <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal"
-                                        data-target="#delete"><span class="glyphicon glyphicon-trash"></span>
+                            <form class='form' method='POST' action="index.php?action=vue_user_delete">
+                                <input name="qIdUser" value="<?php echo $resultat['id'] ?>" type="hidden" />
+                                <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
+                                <button type="submit" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal"
+                                        data-target="#delete" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur ?');"
+                                ><span class="glyphicon glyphicon-trash"></span>
                                 </button>
-                            </a>
-                            <a href="index.php?action=vue_profil_admin&qIdUser=<?= $resultat['id']; ?>">
-                                <button class="btn btn-primary btn-xs" data-title="update" data-toggle="modal"
+                            </form>
+                            <form class='form' method='POST' action="index.php?action=vue_profil_admin&qIdUser=<?php echo $resultat['id'] ?>">
+                                <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
+                                <button type="submit" class="btn btn-primary btn-xs" data-title="update" data-toggle="modal"
                                         data-target="#delete"><span class="glyphicon glyphicon-pencil"></span>
                                 </button>
-                            </a>
+                            </form>
                         </td>
                         <td width="20%">
-                            <?php $dest = "index.php?action=vue_role&qIdUser=".$resultat['id']; ?>
-                            <form class='form' method='POST' action="<?php echo $dest ?>"
+                            <form class='form' method='POST' action="index.php?action=vue_role"
                                   enctype="multipart/form-data">
                                 <?php require 'vue_select_role.php'; ?>
+                                <input name="qIdUser" value="<?php echo $resultat['id'] ?>" type="hidden" />
                                 <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
                                 <button type="submit" class="btn btn-primary" name="addRole">Envoyer</button>
                             </form>

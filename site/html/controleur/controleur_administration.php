@@ -17,10 +17,10 @@ function roleGestion()
  * Mise à jour du rôle d'un utilisateur
  */
 function updUserRole(){
-    if (isset($_GET['qIdUser']) && isset($_POST['role'])) {
+    if (isset($_POST['qIdUser']) && isset($_POST['role'])) {
         try {
             verifCSRF();
-            updateRoleById(checkInt($_GET['qIdUser']), $_POST['role']);
+            updateRoleById(checkInt($_POST['qIdUser']), $_POST['role']);
         } catch (Exception $e) {
             $_SESSION['erreur'] = $e->getMessage();
         }
@@ -33,9 +33,10 @@ function updUserRole(){
  * Suppression d'un utilisateur
  */
 function deleteUserForAdmin(){
-    if (isset($_GET['qIdUser'])) {
+    if (isset($_POST['qIdUser'])) {
         try {
-            delUser(checkInt($_GET['qIdUser']));//suppression de l'utilisateur
+            verifCSRF();
+            delUser(checkInt($_POST['qIdUser']));//suppression de l'utilisateur
             $_SESSION['modif'] = "L'utilisateur a été supprimé";
         } catch (Exception $e) {
             trigger_error($e->getMessage(), E_USER_ERROR);
@@ -51,15 +52,15 @@ function deleteUserForAdmin(){
  * Mise à jour du statut de validité d'un utilisateur
  */
 function updUserValid(){
-    if (isset($_GET['qIdUser']) && isset($_POST['valid'])) {
+    if (isset($_POST['qIdUser']) && isset($_POST['valid'])) {
         try {
             verifCSRF();
-            updateValidById(checkInt($_GET['qIdUser']), $_POST['valid']);
+            updateValidById(checkInt($_POST['qIdUser']), $_POST['valid']);
         } catch (Exception $e) {
             $_SESSION['erreur'] = $e->getMessage();
         }
     }
-    @header("location: index.php?action=vue_profil_admin&qIdUser=" . $_GET['qIdUser']);
+    @header("location: index.php?action=vue_profil_admin&qIdUser=" . $_POST['qIdUser']);
 }
 
 /*

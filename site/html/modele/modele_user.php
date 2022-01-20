@@ -1,10 +1,10 @@
 <?php
 /**
-modele.php
-Fonction : modele avec connexion avec le serveur et la BD
-exécution des requêtes
-Security Measure : fix timing attack for checkLogin
-____________________________________________________________
+ * modele.php
+ * Fonction : modele avec connexion avec le serveur et la BD
+ * exécution des requêtes
+ * Security Measure : fix timing attack for checkLogin
+ * ____________________________________________________________
  */
 
 define("ROOT_ERREUR", "vue/erreur");
@@ -23,13 +23,16 @@ function getIdUser($login)
 {
     $db = getBD();
     // Création de la string pour la requête
-    $requete = "SELECT id 
+    $requete = $db->prepare("SELECT id 
                 FROM user
-                WHERE name='" . $login . "'
-                    OR email='" . $login . "'";
+                WHERE name = :name
+                    OR email = :email");
+    $requete->bindValue(':name', $login);
+    $requete->bindValue(':email', $login);
+
     // Exécution de la requete
-    $resultats = $db->query($requete);
-    $idUser = $resultats->fetch();
+    $requete->execute();
+    $idUser = $requete->fetch();
     return $idUser['id'];
 }
 
@@ -46,7 +49,7 @@ function updateRoleByName($name, $idRole)
     $requete = $db->prepare("UPDATE user
                                        SET idRole = :idRole
                                        WHERE name = :name
-                                       AND id !='" . $_SESSION['idUser'] ."'
+                                       AND id !='" . $_SESSION['idUser'] . "'
                                        AND id != 1;");
     // Exécution de la requete
     $requete->bindValue(':idRole', $idRole, PDO::PARAM_INT);
@@ -92,11 +95,15 @@ function getUserByLogin($login)
 {
     $db = getBD();
     // Création de la string pour la requête
-    $requete = "SELECT * 
+    $requete = $db->prepare("SELECT * 
                 FROM user
-                WHERE name ='" . $login . "'";
+                WHERE name = :name");
+
+    $requete->bindValue(':name', $login);
+
     // Exécution de la requete
-    return $db->query($requete);
+    $requete->execute();
+    return $requete->fetch();
 }
 
 
@@ -113,8 +120,7 @@ function infoUtilisateur()
     $infoUser = array(
         'email' => "",
     );
-    $reponse = getUserByLogin($_SESSION['login']);
-    $donnees = $reponse->fetch();
+    $donnees = getUserByLogin($_SESSION['login']);
     //Insère dans le tableau précédemment crée les informations de l'utilisateur
     if (empty($donnees['name'])) {
         throw new Exception("Le nom d'utilisateur n'existe pas");
@@ -137,7 +143,6 @@ function checkLogin($postArray)
     $username = $postArray ["fLogin"];
     $passwdPost = $postArray["fPasswd"];
     $resultats = getUserByLogin($username);
-    $resultats = $resultats->fetch();
     $success = true;
     if ($resultats['isValid'] == 0) {
         $success = false;
@@ -147,7 +152,7 @@ function checkLogin($postArray)
         $success = false;
         //We hash the username instead of database password
         $hash = $resultats['name'];
-    }else{
+    } else {
         $hash = $resultats['password'];
     }
     $passwordCorrect = password_verify($passwdPost, $hash);
@@ -191,26 +196,27 @@ function ajoutUser($postArray)
     //Source pour le test de la validation d'adresse email : http://php.net/manual/fr/filter.examples.validation.php
     //Hashage mdp
     $passwdHash = password_hash($passwdPost, PASSWORD_DEFAULT);
-    $passwd = $passwdHash;
     // test si le login ou l'email existe déjà pour éviter qu'il y ait deux utilisateurs ayant le même login ou la même adresse email
-    $reqSelect = "SELECT * 
+    $reqSelect = $db->prepare("SELECT * 
                  FROM user
-                 WHERE name='" . $login . "'
-                    OR email='" . $email . "';";
-    $res = $db->query($reqSelect);
-    $ligne = $res->fetch(); // récupère la valeur du login sélectionné s'il y en a un
+                 WHERE name= :login
+                    OR email= :email;");
+    $reqSelect->bindValue(':login', $login);
+    $reqSelect->bindValue(':email', $email);
+    $reqSelect->execute();
+    $ligne = $reqSelect->fetch(); // récupère la valeur du login sélectionné s'il y en a un
     // Test le résultat
     if (empty($ligne['name'])) {
         // ajout de l'utilisateur
         $req = $db->prepare('INSERT INTO user (name, email, password, isValid, idRole )
                     VALUES (:name, :email, :password, :isValid, :idRole)');
-        $req->execute(array(
-            'name' => $login,
-            'email' => $email,
-            'password' => $passwd,
-            'isValid' => 1,
-            'idRole' => 2
-        ));
+
+        $req->bindValue(':name', $login);
+        $req->bindValue(':email', $email);
+        $req->bindValue(':password', $passwdHash);
+        $req->bindValue(':isValid', 1, PDO::PARAM_INT);
+        $req->bindValue(':idRole', 2, PDO::PARAM_INT);
+        $req->execute();
     } else {
         throw new Exception("L'utilisateur ne peut pas être ajouté car il existe déjà.");
     }
@@ -229,24 +235,25 @@ function changePasswd($postArray)
     $NPasswdConf = $postArray['fNPasswdConf'];
     $db = getBD();
     //Sélection du mot de passe de l'utilisateur dans la BDD
-    $requete = "SELECT password
+    $requete = $db->prepare("SELECT password
               FROM user
-              WHERE name ='" . $_SESSION['login'] . "';";
-    $resultats = $db->query($requete);
-    $passwd = $resultats->fetch();
+              WHERE name = :name;");
+    $requete -> bindValue(name, $_SESSION['login']);
+    $requete -> execute();
+    $passwd = $requete->fetch();
 
     if (!empty($resultats)) {
-       //Vérifie que les mots de passes correspondent
+        //Vérifie que les mots de passes correspondent
         erreurPasswd($NPasswdConf, $NPasswdPost);
         $hash = $passwd['password'];
         if (password_verify($passwdOld, $hash)) //Vérification du mot de passe
         {
             $passwdHash = password_hash($NPasswdPost, PASSWORD_DEFAULT); //Hachage du mot de passe
-            $passwd = $passwdHash;
             //Mise à jour des informations
             $req = $db->prepare("UPDATE user SET password=:password
-                WHERE id='" . $_SESSION['idUser'] . "';");
-            $req->bindValue(':password', $passwd);
+                WHERE id = :idUser;");
+            $req->bindValue(idUser, $_SESSION['idUser'],PDO::PARAM_INT);
+            $req->bindValue(password, $passwdHash);
             $req->execute();
             $_SESSION['modif'] = "Votre mot de passe a été modifié";
         } else {
@@ -271,12 +278,14 @@ function changeLogin($postArray)
     longChampValid($NLogin, "Nom d'utilisateur/login", 30);
     if ($NLogin != $_SESSION['login']) {
         // test si le login ou l'email existe déjà pour éviter qu'il y ait deux utilisateurs ayant le même login
-        $reqSelect = "SELECT * 
+        $reqSelect = $db->prepare("SELECT * 
                      FROM user
-                     WHERE name='" . $NLogin . "'
-                        AND name !='" . $_SESSION['login'] . "';";
-        $res = $db->query($reqSelect);
-        $ligne = $res->fetch(); // récupère la valeur du login sélectionné s'il y en a un
+                     WHERE name= :name
+                        AND name != :notName;");
+        $reqSelect->bindValue(':name', $NLogin);
+        $reqSelect->bindValue(':notName', $_SESSION['login']);
+        $reqSelect->execute();
+        $ligne = $reqSelect->fetch(); // récupère la valeur du login sélectionné s'il y en a un
         // Test le résultat
         if (empty($ligne['name'])) {
             //Mise à jour des informations
@@ -303,10 +312,10 @@ function delUser($idUser)
 {
     $db = getBD();
     $requete = 'DELETE FROM user
-                WHERE id = :idUser";';
+                WHERE id = :idUser;';
     $requete = $db->prepare($requete);
     $requete->bindValue(':idUser', $idUser, PDO::PARAM_INT);
-    $db->exec($requete);
+    $requete->execute();
 }
 
 /*
@@ -317,11 +326,17 @@ function infoUser($idUser)
 {
     $db = getBD();
 
-    $request = "SELECT * FROM USER
-                WHERE id = $idUser";
-    $infoUser = $db->query($request)->fetch();
+    $request = $db->prepare("SELECT * FROM USER
+                WHERE id = :idUser");
 
-    return $infoUser;//Retourne le tableau contenant les informations de l'utilisateur
+    $request->bindValue(':idUser', $idUser);
+
+    // Exécution de la requete
+    $request->execute();
+
+    //Retourne le tableau contenant les informations de l'utilisateur
+    return $request->fetch();
+
 }
 
 // -----------------------------
