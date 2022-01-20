@@ -19,6 +19,9 @@ function roleGestion()
 function updUserRole(){
     if (isset($_POST['qIdUser']) && isset($_POST['role'])) {
         try {
+            if($_POST['qIdUser'] == $_SESSION['idUser']){
+                throw new Exception("Vous ne pouvez pas changer votre propre rôle");
+            }
             verifCSRF();
             updateRoleById(checkInt($_POST['qIdUser']), $_POST['role']);
         } catch (Exception $e) {

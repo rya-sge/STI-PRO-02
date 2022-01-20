@@ -49,7 +49,17 @@ ob_start();
             <tr>
                 <td>Rôle</td>
                 <td><?php  echo $infoUser['idRole'] == 1 ? "Administrateur" : "Collaborateur"; ?></td>
-                <td></td>
+                <td>
+                    <form class='form' method='POST' action="index.php?action=vue_user_delete">
+                        <input name="qIdUser" value="<?php echo $infoUser['id'] ?>" type="hidden" />
+                        <input name="token" value="<?php echo $_SESSION["token"] ?>" type="hidden" />
+                        <button type="submit" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal"
+                                data-target="#delete" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur ?');"
+                        ><span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </form>
+                </td>
+
             </tr>
 			<tr>
 				<td>Etat du compte</td>
