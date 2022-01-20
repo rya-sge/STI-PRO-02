@@ -1,8 +1,18 @@
 ## Description
 
-Implémentation d'un site web **vulnérable** simulant une messagerie.
+Sécurisation d'un site web **vulnérable** simulant une messagerie.
 
-Ce site permet de tester différents failles de sécurité.
+Le site vulnérable sans les modifications est disponible ici : https://github.com/rya-sge/STI-PRO-01
+
+## Auteurs
+
+Ryan Sauge
+
+Michael Ruckstuhl
+
+## Rapport
+
+Dans le dossier rapport, le fichier rapport.pdf explique l'analyse de menace effectuée, les attaques possibles détectées ainsi que les correctifs appliqués pour défendre l'application contre ces dernières.
 
 ## Installation
 
