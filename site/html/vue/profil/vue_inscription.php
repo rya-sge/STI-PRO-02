@@ -24,7 +24,7 @@ ob_start();
 		<label>Email*</label>
         <input class="form-control" type="email" placeholder="Entrez votre adresse email" name="fEmail" value="<?=@$_POST['fEmail'] ?>" required/>
 		</br>
-		<label>Mot de passe*</label>
+		<label>Mot de passe (min 12 caractères)*</label>
 		<input class="form-control"  type="password" placeholder="Entrez votre mot de passe" name="fPasswd" required/>
 		</br>
 		<label>Confirmer mot de passe*</label>
