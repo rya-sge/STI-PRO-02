@@ -4,7 +4,7 @@
 
 ## Analyse dynamique
 
-L'analyse dynamique à consister à employer le projet Ruby suivant permettant de détecter ces vulnérabilités : https://github.com/ffleming/timing_attack
+L'analyse dynamique à consister à employer le projet Ruby suivant permettant de détecter ces vulnérabilités : [https://github.com/ffleming/timing_attack]( https://github.com/ffleming/timing_attack)
 
 - Test 1 
 
@@ -18,9 +18,8 @@ Résultat : Pas de timing attack détecté
 
 
 
-- Test 2 
+- Test 2 : test effectué en passant les paramètres et les inputs dans un fichiers séparés
 
-  Test effectué sur
 
 ```bash
 timing_attack -q  -u http://localhost:8080/index.php?action=vue_login  -p  --parameters-file params.txt \
@@ -32,22 +31,6 @@ Résultat : on ne peut pas conclure que l'application est vulnérable
 
 ![test-1](./assets/timing-attack/test-1.PNG)
 
-
-
-![test-2](./assets/timing-attack/test-2.PNG)
-
-
-
-```bash
-ming_attack -q  -u http://localhost:8080/index.php?action=vue_login  -p  --parameters-file params.txt \
-                      --inputs-file inputs.txt
-
-```
-
-
-
-Résultat : on ne peut pas conclure que l'application est vulnérable
-
 Quelques sources intéressants pour creuser le sujet :
 
 - Serveur telnet : [http://shoxx-website.com/2013/12/timing-attack-le-temps-est-precieux.html]( http://shoxx-website.com/2013/12/timing-attack-le-temps-est-precieux.html)
@@ -56,7 +39,7 @@ Quelques sources intéressants pour creuser le sujet :
 
 ## Analyse statique
 
-L'analyse statique à consister  à regarder le code manuellement. La fonction analysée est la suivante :
+L'analyse statique à consister  à regarder le code manuellement. La fonction analysée est `checkLogin`
 
 ### Code
 

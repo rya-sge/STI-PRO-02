@@ -1,4 +1,4 @@
-## CSRF
+# CSRF
 
 Cet exemple illustre une attaque csrf sur le site web sti.
 
@@ -56,7 +56,7 @@ L'attaquant possède un site web avec une page html contenant :
 
 Le code ci-dessus va automatiquement émettre une requête POST avec le contenu du formulaire dès que l'utilisateur est sur la page.
 
-```javascript
+```html
 <script language="javascript">document.roleForme.submit();</script>
 ```
 
@@ -66,11 +66,11 @@ Le code ci-dessus va automatiquement émettre une requête POST avec le contenu 
 
 Cette exemple illustre une façon possible pour convaincre l'utilisateur de cliquer sur le lien.
 
-Il envoie le lien url de son site web et fait en sorte que l'utilisateur clique dessus. Par exemple, il a réussi à obtenir le compte email, facebook d'une connaissance de la victime. Il envoi l'email suivant :
+Il envoie le lien url de son site web et fait en sorte que l'utilisateur clique dessus. Par exemple, il a réussi à obtenir le compte email ou  facebook d'une connaissance de la victime. Il envoit l'email suivant :
 
 ![csrf-email](./assets/csrf/csrf-email.PNG)
 
-L'utilisateur ne se méfie pas et clique sur lien url qui l'envoie sur le site malveillant contenant la page html (formulaire + script javasript)
+L'utilisateur ne se méfie pas et clique sur lien url qui l'envoie sur le site malveillant contenant la page html (formulaire + script javascript)
 
 
 
@@ -86,7 +86,7 @@ Lorsqu'on se connecte en tant qu'user, on constate bien que la partie administra
 
 
 
-Sources 
+### Sources 
 
 - https://portswigger.net/web-security/csrf
 
