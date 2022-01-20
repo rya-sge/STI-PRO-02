@@ -33,8 +33,10 @@
                             ON sender = user.id
                         WHERE
                         recipient  = '" . $_SESSION["idUser"] . "'
-                        AND message.id = $idMessage;";
+                        AND message.id = :idMessage;";
             // Exécution de la requete
+            $requete = prepare($requete);
+            $requete = $requete->bindValue(':idMessage', $idMessage, PDO::PARAM_INT);
             return $db->query($requete)->fetch();
         }
 
