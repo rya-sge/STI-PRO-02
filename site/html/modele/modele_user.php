@@ -238,11 +238,11 @@ function changePasswd($postArray)
     $requete = $db->prepare("SELECT password
               FROM user
               WHERE name = :name;");
-    $requete -> bindValue(name, $_SESSION['login']);
+    $requete -> bindValue(':name', $_SESSION['login']);
     $requete -> execute();
     $passwd = $requete->fetch();
 
-    if (!empty($resultats)) {
+    if (!empty($passwd)) {
         //Vérifie que les mots de passes correspondent
         erreurPasswd($NPasswdConf, $NPasswdPost);
         $hash = $passwd['password'];
@@ -252,8 +252,8 @@ function changePasswd($postArray)
             //Mise à jour des informations
             $req = $db->prepare("UPDATE user SET password=:password
                 WHERE id = :idUser;");
-            $req->bindValue(idUser, $_SESSION['idUser'],PDO::PARAM_INT);
-            $req->bindValue(password, $passwdHash);
+            $req->bindValue(':idUser', $_SESSION['idUser'],PDO::PARAM_INT);
+            $req->bindValue(':password', $passwdHash);
             $req->execute();
             $_SESSION['modif'] = "Votre mot de passe a été modifié";
         } else {
