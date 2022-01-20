@@ -78,8 +78,7 @@ Deux utilisateurs sont déjà présents dans la base de donnée :
 - Un administrateur : login : admin, mdp : admin
 - Un utilisateur : login : user, mdp : user
 
-Il est possible de créer des utilisateurs supplémentaire depuis la page de login du site.
-
+Il est possible de créer des utilisateurs supplémentaire avec le compte admin ou directement dans la BDD sqlite (attention : les mots de passes doivent être sous forme de hash)
 
 
 ## Présentation du site
